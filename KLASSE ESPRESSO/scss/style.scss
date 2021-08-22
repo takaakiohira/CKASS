@@ -1,0 +1,582 @@
+@charset "UTF-8";
+// @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=WindSong&display=swap');
+$color-main:#303967;
+$color-accent:#feebbe;
+$color-sub:#000;
+ $color-text:#000;
+
+$layout-width-inner:1300px;
+
+$font-en: 'Lato', sans-serif;
+$font-ja:'Noto Serif JP', serif;
+
+// ブレークポイント
+$breakpoints:(
+	"sp" : "(max-width: 767px)",
+	"tab" : "(min-width: 768px) and (max-width: #{$layout-width-inner})",
+	"pc" : "(min-width: #{$layout-width-inner})",
+	);
+
+
+
+// メディアクエリー
+@mixin mq($breakpoint: sp) {
+	@media #{map-get($breakpoints, $breakpoint)} {
+		@content;
+	}
+}
+
+*,
+*::before,
+*::after{
+	box-sizing: border-box;
+}
+
+html,
+body{
+	padding: 0;
+	margin:0;
+	overflow-x:hidden; 
+}
+body{
+	font-family: $font-ja;
+	font-size: 18px;
+	line-height: 1.6;
+	color: $color-text;
+	// background:$color-main;
+	
+	
+}
+img{
+	max-width: 100%;
+	height: auto;
+}
+
+ul,
+ol{
+	list-style: none;
+	padding: 0;
+	margin:0;
+}
+
+h1,h2,h3,h4,h5,h6{
+	padding: 0;
+	margin:0;
+}
+a{
+	color: inherit; //親要素を継承
+	text-decoration: none;
+}
+.section{
+	padding-top: 100px;
+	padding-bottom: 400px;
+}
+.inner{
+	width: $layout-width-inner;
+	max-width: 100%;
+	margin: 0 auto;
+
+	@include mq('sp'){
+		padding-left: 16px;
+		padding-right: 16px;
+	}
+}
+
+
+.header{
+	height: 100px;
+	top: 0;
+	left: 0;
+	width: $layout-width-inner;
+	z-index: 300;
+	margin-top: 30px;
+
+
+	@include mq('sp'){
+		height: 60px;
+	}
+}
+
+.header__inner{
+	align-items: center;
+	height: inherit;
+	display: flex;
+	width: 100%;
+}	
+.nav{
+	margin: 0 auto;
+	ul{
+		display: flex;
+	}
+	li{
+		margin-left: 100px;
+
+		&:first-child{
+			margin-left: 0;
+		}
+	}
+	a{
+
+
+		}
+	.home{
+		position: relative;
+
+
+		&:after{
+			position: absolute;
+			content: "HOME";
+			width: 130px;
+			height: 20px;
+			top: 30px;
+			left: -5px;
+	}
+	}
+	.news{
+		position: relative;
+
+
+		&:after{
+			position: absolute;
+			content: "NEWS";
+			width: 130px;
+			height: 20px;
+			top: 30px;
+			left: -5px;
+	}
+	}
+	.bread{
+		position: relative;
+
+
+		&:after{
+			position: absolute;
+			content: "BREAD";
+			width: 130px;
+			height: 20px;
+			top: 30px;
+			left: -12px;
+	}
+	}
+	.access{
+		position: relative;
+
+
+		&:after{
+			position: absolute;
+			content: "ACCESS";
+			width: 130px;
+			height: 20px;
+			top: 30px;
+			left: -18px;
+	}
+	}
+	.contact{
+		position: relative;
+
+
+		&:after{
+			position: absolute;
+			content: "CONTACT";
+			width: 130px;
+			height: 20px;
+			top: 30px;
+			left: -18px;
+	}
+	}
+	.online{
+		position: relative;
+
+
+		&:after{
+			position: absolute;
+			content: "ONLINE SHOP";
+			width: 130px;
+			height: 20px;
+			top: 30px;
+			left: -25px;
+	}
+	}
+}
+//drawer
+.drawer-icon{
+	position: fixed;
+	right: 16px;
+	top: 20px;
+	z-index: 400;
+	display: none;
+	transition: transform 0.5s ease 0s;
+
+	@include mq('sp'){
+		display: block;
+	}
+
+	&.is-active{
+		transform:translateX(-200px);//drawer-contentの幅分を移動してあげる
+			
+			.drawer-icon__bar1{
+				transform: rotate(-45deg);
+				top:8px;
+			}
+			.drawer-icon__bar2{
+				display: none;
+
+			}
+			.drawer-icon__bar3{
+				transform:rotate(45deg);
+				top:8px;
+
+			}
+		}
+
+}
+.drawer-icon__bars{
+	width: 30px;
+	height: 20px;
+	position: relative;
+	margin: 0;
+
+}
+.drawer-icon__bar1,
+.drawer-icon__bar2,
+.drawer-icon__bar3{
+	position: absolute;
+	background: #C0C0C0;
+	border:1px solid #C0C0C0;
+	top: 0;
+	left: 0;
+	width: 30px;
+	height: 4px;
+
+}
+.drawer-icon__bar1{
+	top: 0;
+}
+.drawer-icon__bar2{
+	top: 8px;
+
+}
+.drawer-icon__bar3{
+	top: 16px;
+
+}
+.drawer-icon__label{
+	font-size: 50%;
+
+}
+.drawer-content{
+	width: 200px;
+	height: 100%;
+	background: #fff;
+	top: 0;
+	right: 0;
+	box-shadow: 0 0 3px rgba(#000 , 0.16);
+	position: fixed;
+	z-index: 399;//iconが200だから
+	transform: translateX(105%);
+	transition: transform 0.5s ease 0s;
+
+	&.is-active{
+		transform: translateX(0);
+	}
+
+}
+.drawer-content__items{
+
+}
+.drawer-content__item{
+	border-bottom:1px dotted #707070;
+
+	a{
+		display: block;//paddingをきくようにする
+		color: #707070;
+		padding:20px;
+		text-decoration: none;
+		position: relative;
+
+		&::after{
+			content: "";
+			position: absolute;
+			width: 8px;//画像の大きさの半分
+			height: 11px;//画像の大きさの半分
+			right: 20px;
+			top: 50%;
+			transform:translateY(-50%);
+
+		}
+
+	}
+}
+.drawer-background{
+	top: 0;
+	left: 0;
+	background: rgba(#000 , 0.8);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 398;
+	display: none;//最初は消えていて
+
+	&.is-active{
+		display: block;//is-activeで出現
+	}
+}
+
+////////////////////main/////////////////////////////////
+.main{
+background-color: $color-main;
+}
+.main__inner{
+	position: relative;
+}
+.main__content{
+	
+	width: 30%;
+	height:2000px;
+	margin: 0 auto;
+	background-color:#feebbe;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.main__content__accent{
+	
+
+}
+.main__content__img{
+    margin: 0 auto ;
+    background: url(../img/coffe2.jpeg) no-repeat center center/cover ;
+    top: 17%;
+    left: 64%;
+    transform: translate(-50%,-50%);
+    width: 68% ;
+    height: 32% ;
+    position: absolute ;
+}
+.main__textbox{
+	position: absolute;
+	left: 5%;
+	top: 19%;
+	width: 43%;
+	z-index: 20;
+
+}
+.main__textbox__contain{
+	width:97%;
+}
+.main__textbox__text{
+	position: relative;
+	height: 395px;
+	background-color: #000;
+	color: #fff;
+	text-align: center;
+
+	h2{
+		padding-top: 10px;
+		font-size: 1.7em;
+	}
+	p{
+		display: inline-block;
+		padding: 30px;
+	}
+
+
+
+	&::after{
+		content:"";
+		position: absolute;
+		top: -6%;
+		left: 5%;
+		width: 100%;
+		border: 2px solid #fff;
+		height:100%;
+		z-index:-10;
+	}
+}
+
+
+////////////////////////sub/////////////////////////////
+.sub{
+background-color: $color-main;
+}
+
+.sub__inner{
+	position: relative;
+}
+.sub__content{
+}
+.sub__img{
+background:transparent url('../img/bread.jpeg')no-repeat center center / cover;
+width: 500px;
+height: 500px;
+z-index: 30;
+position: relative;
+
+&::after{
+	position: absolute;
+	content: "Glam :D Bread";
+	font-size: 2.8em;
+	font-weight: 700;
+	color:$color-accent;
+	transform: rotate(-10deg);
+	left:89%;
+	top:-2%;
+	width: 100%;
+	font-family: 'WindSong', cursive;
+}
+
+}
+.sub__textbox{
+position: absolute;
+top: 76%;
+left: 74%;
+transform: translate(-50%,-50%);
+padding: 30px;
+width: 50%;
+z-index: 120;
+
+}
+.sub__textbox__contain{
+width:97%;
+}
+.sub__textbox__text{
+	position: relative;
+	height: 395px;
+	background-color: #fff;
+	color: #000;
+	text-align: center;
+
+	h2{
+		padding-top: 10px;
+		font-size: 1.7em;
+		font-weight: 700;
+	}
+	p{
+		display: inline-block;
+		padding: 24px;
+	}
+
+
+
+	&::after{
+		content:"";
+		position: absolute;
+		top: 4%;
+		left: 5%;
+		width: 100%;
+		border: 2px solid $color-accent;
+		height:100%;
+		z-index:-10;
+}
+}
+.sub__textbox__color{
+	width: 100%;
+	height: 45px;
+	background-color: $color-accent;
+}
+//////////////third/////////////
+.third{
+background-color: #e6dfcb;
+}
+.third__inner{
+position: relative;
+}
+.third__content{
+
+}
+.third__img{
+background:url(../img/cafe.jpeg)no-repeat center center / cover;
+width: 80%;
+height: 800px;
+margin-left: auto;
+
+}
+.third__left{
+position: absolute;
+top: 15%;
+left: -24%;
+background-color:#c1a37d;
+width: 61%;
+transform: rotate(-90deg);
+
+ p{
+ 	display: inline-block;
+ 	padding: 49px;
+ }
+}
+.third__right{
+position: absolute;
+top: 77%;
+left: 80%;
+background-color:#c1a37d;
+width: 29%;
+height: 446px;
+opacity: 0.4;
+}
+.third__line1{
+position: absolute;
+top: -3%;
+left: 10%;
+background-color:#c1a37d;
+width: 100%;
+height: 10px;
+opacity: 0.4;
+}
+.third__line2{
+position: absolute;
+top: 107%;
+left: 0%;
+background-color:#c1a37d;
+width: 80%;
+height: 10px;
+opacity: 0.4;
+}
+.third__textbox{
+position: absolute;
+top: 87%;
+left: 34%;
+transform: translate(-50%,-50%);
+color:#fff;
+border: 1px solid #fff;
+width: 100%;
+}
+.third__textbox__contain{
+
+}
+.third__textbox__text{
+padding-left: 350px;
+}
+.third__textbox__tet{
+	display: flex;
+}
+.third__textbox__tet__title{
+	padding: 10px;
+	h2{
+		font-size: 1.8em;
+		line-height: 1.2;
+		span{
+			font-size: 1.4em;
+			font-weight: 700;
+		}
+	}
+}
+.third__textbox__tet__text{
+	p{
+		display: inline-block;
+		padding: 20px;
+	}
+}
+
+
+
+
+
+.copy__right{
+	text-align: center;
+	background: #000;
+	color:#fff;
+	height: 30px;
+	padding-top: 15px;
+}
+
+
